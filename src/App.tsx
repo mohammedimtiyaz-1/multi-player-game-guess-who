@@ -10,8 +10,8 @@ function App() {
   const [pendingGameId, setPendingGameId] = useState<string | null>(null);
 
   useEffect(() => {
-    // Check for game ID in URL
-    const params = new URLSearchParams(window.location.search);
+    // Check for game ID in URL, accounting for hash routing
+    const params = new URLSearchParams(window.location.hash.split('?')[1] || window.location.search);
     const gameId = params.get("game");
 
     if (gameId && gameState.id === "") {
