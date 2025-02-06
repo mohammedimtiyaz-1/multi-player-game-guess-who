@@ -9,7 +9,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({ gameId }) => {
   const [copied, setCopied] = useState(false);
 
   const handleShare = async () => {
-    const gameUrl = `${window.location.origin}?game=${gameId}`;
+    const gameUrl = `${window.location.origin}/multi-player-game-guess-who?game=${gameId}`;
 
     try {
       await navigator.clipboard.writeText(gameUrl);
