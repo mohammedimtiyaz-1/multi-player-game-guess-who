@@ -486,13 +486,6 @@ const GameBoard: React.FC = () => {
                     playerName={player.name}
                     isCurrentPlayer={player.id === currentPlayer?.id}
                     onClick={() => handleCardClick(player)}
-                    canBeClicked={
-                      isGameStarted &&
-                      isCurrentPlayerActive &&
-                      player.id !== currentPlayer?.id &&
-                      player.cardNumber !== gameState.revealedCard &&
-                      player.cardNumber !== 1
-                    }
                   />
                 </div>
               </div>
