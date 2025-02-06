@@ -4,7 +4,7 @@ import react from "@vitejs/plugin-react";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: "./", // Update this to match your repository name
+  base: '/multi-player-game-guess-who/',
   build: {
     outDir: "dist",
     assetsDir: "assets",
