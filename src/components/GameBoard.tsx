@@ -469,62 +469,11 @@ const GameBoard: React.FC = () => {
         <div className="mt-8">
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 px-2 sm:px-4">
             {gameState.players.map((player) => (
-              <motion.div
+              <div
                 key={player.id}
                 className="relative w-full aspect-[3/4] flex items-center justify-center"
-                whileHover={
-                  isGameStarted &&
-                  isCurrentPlayerActive &&
-                  player.id !== currentPlayer?.id &&
-                  player.cardNumber !== gameState.revealedCard &&
-                  player.cardNumber !== 1
-                    ? { 
-                        scale: 1.02,
-                        transition: { duration: 0.2 }
-                      }
-                    : {}
-                }
               >
-                {/* Active Player Bubble Animation - Only show for active player */}
-                {player.isActive && (
-                  <>
-                    {/* Background glow effect */}
-                    <motion.div
-                      className="absolute inset-0 rounded-xl bg-primary/10"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{
-                        opacity: [0.3, 0.15, 0.3],
-                        scale: [0.9, 1.05, 0.9],
-                        borderRadius: ["12px", "16px", "12px"]
-                      }}
-                      transition={{
-                        duration: 2.5,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }}
-                    />
-                    {/* Foreground pulse effect */}
-                    <motion.div
-                      className="absolute inset-0 rounded-xl bg-primary/5"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{
-                        opacity: [0.2, 0.1, 0.2],
-                        scale: [0.95, 1.1, 0.95],
-                        borderRadius: ["14px", "18px", "14px"]
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                        delay: 0.2
-                      }}
-                    />
-                  </>
-                )}
-                
-                <div className={`w-full max-w-[200px] mx-auto relative ${
-                  player.isActive ? 'z-10' : ''
-                }`}>
+                <div className="w-full max-w-[200px] mx-auto">
                   <Card
                     number={player.cardNumber}
                     isRevealed={
@@ -537,9 +486,16 @@ const GameBoard: React.FC = () => {
                     playerName={player.name}
                     isCurrentPlayer={player.id === currentPlayer?.id}
                     onClick={() => handleCardClick(player)}
+                    canBeClicked={
+                      isGameStarted &&
+                      isCurrentPlayerActive &&
+                      player.id !== currentPlayer?.id &&
+                      player.cardNumber !== gameState.revealedCard &&
+                      player.cardNumber !== 1
+                    }
                   />
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
