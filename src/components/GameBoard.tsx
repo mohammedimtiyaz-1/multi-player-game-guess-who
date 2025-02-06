@@ -84,7 +84,7 @@ const GameBoard: React.FC = () => {
               : `${leader.name} has won the game!`}
           </div>,
           {
-            duration: 5000,
+            duration: 8000,
             icon: "🎮",
           }
         );
@@ -99,7 +99,7 @@ const GameBoard: React.FC = () => {
               : `${leader.name} is leading with ${leader.score} points!`}
           </div>,
           {
-            duration: 5000,
+            duration: 6000,
             icon: "🎮",
           }
         );
@@ -170,7 +170,7 @@ const GameBoard: React.FC = () => {
           You earned {points} points!
         </div>,
         {
-          duration: 3000,
+          duration: 7000,
           icon: "🎉",
         }
       );
@@ -183,7 +183,7 @@ const GameBoard: React.FC = () => {
           Swapping cards with {player.name}
         </div>,
         {
-          duration: 3000,
+          duration: 7000,
           icon: "🔄",
         }
       );
@@ -199,7 +199,7 @@ const GameBoard: React.FC = () => {
         Get ready to play!
       </div>,
       {
-        duration: 3000,
+        duration: 5000,
         icon: "🎲",
       }
     );
@@ -467,34 +467,78 @@ const GameBoard: React.FC = () => {
 
         {/* Game Area */}
         <div className="mt-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 px-2 sm:px-4">
             {gameState.players.map((player) => (
               <motion.div
                 key={player.id}
-                className="relative w-full"
+                className="relative w-full aspect-[3/4] flex items-center justify-center"
                 whileHover={
                   isGameStarted &&
                   isCurrentPlayerActive &&
                   player.id !== currentPlayer?.id &&
                   player.cardNumber !== gameState.revealedCard &&
                   player.cardNumber !== 1
-                    ? { scale: 1.02 }
+                    ? { 
+                        scale: 1.02,
+                        transition: { duration: 0.2 }
+                      }
                     : {}
                 }
               >
-                <Card
-                  number={player.cardNumber}
-                  isRevealed={
-                    isGameStarted &&
-                    (player.id === currentPlayer?.id ||
-                      player.cardNumber === gameState.revealedCard ||
-                      player.cardNumber === 1)
-                  }
-                  isActive={player.isActive}
-                  playerName={player.name}
-                  isCurrentPlayer={player.id === currentPlayer?.id}
-                  onClick={() => handleCardClick(player)}
-                />
+                {/* Active Player Bubble Animation - Only show for active player */}
+                {player.isActive && (
+                  <>
+                    {/* Background glow effect */}
+                    <motion.div
+                      className="absolute inset-0 rounded-xl bg-primary/10"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{
+                        opacity: [0.3, 0.15, 0.3],
+                        scale: [0.9, 1.05, 0.9],
+                        borderRadius: ["12px", "16px", "12px"]
+                      }}
+                      transition={{
+                        duration: 2.5,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    />
+                    {/* Foreground pulse effect */}
+                    <motion.div
+                      className="absolute inset-0 rounded-xl bg-primary/5"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{
+                        opacity: [0.2, 0.1, 0.2],
+                        scale: [0.95, 1.1, 0.95],
+                        borderRadius: ["14px", "18px", "14px"]
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 0.2
+                      }}
+                    />
+                  </>
+                )}
+                
+                <div className={`w-full max-w-[200px] mx-auto relative ${
+                  player.isActive ? 'z-10' : ''
+                }`}>
+                  <Card
+                    number={player.cardNumber}
+                    isRevealed={
+                      isGameStarted &&
+                      (player.id === currentPlayer?.id ||
+                        player.cardNumber === gameState.revealedCard ||
+                        player.cardNumber === 1)
+                    }
+                    isActive={player.isActive}
+                    playerName={player.name}
+                    isCurrentPlayer={player.id === currentPlayer?.id}
+                    onClick={() => handleCardClick(player)}
+                  />
+                </div>
               </motion.div>
             ))}
           </div>
