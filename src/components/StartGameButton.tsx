@@ -16,30 +16,36 @@ const StartGameButton: React.FC<StartGameButtonProps> = ({
 }) => {
   const getMessage = () => {
     if (totalPlayers < minPlayers) {
-      return `Waiting for more players... (${totalPlayers}/${minPlayers} players)`;
+      return `Waiting for players (${totalPlayers}/${minPlayers})`;
     }
     return "Start Game";
   };
 
   return (
     <motion.div
-      className="fixed bottom-8 left-1/2 transform -translate-x-1/2"
+      className="w-full mt-4 sm:mt-6 flex justify-center"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
     >
       <button
         onClick={onStart}
         disabled={disabled}
-        className={`flex items-center space-x-2 px-6 py-3 rounded-lg shadow-lg transition-all
+        className={`
+          flex items-center justify-center space-x-1.5 sm:space-x-2 
+          px-4 sm:px-6 py-2 sm:py-3 
+          rounded-lg shadow-lg transition-all
+          text-sm sm:text-base font-medium text-white
+          w-full sm:w-auto min-w-[200px] max-w-[90%] sm:max-w-none
           ${
             disabled
               ? "bg-gray-400 cursor-not-allowed"
               : "bg-primary hover:bg-primary/90 hover:scale-105"
-          } text-white font-medium`}
+          }
+        `}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5"
+          className="h-4 w-4 sm:h-5 sm:w-5"
           viewBox="0 0 20 20"
           fill="currentColor"
         >
@@ -49,7 +55,7 @@ const StartGameButton: React.FC<StartGameButtonProps> = ({
             clipRule="evenodd"
           />
         </svg>
-        <span>{getMessage()}</span>
+        <span className="whitespace-nowrap">{getMessage()}</span>
       </button>
     </motion.div>
   );

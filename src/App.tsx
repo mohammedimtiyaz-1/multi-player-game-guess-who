@@ -4,6 +4,7 @@ import LandingPage from "./components/LandingPage";
 import GameBoard from "./components/GameBoard";
 import NameModal from "./components/NameModal";
 import Footer from "./components/Footer";
+
 function App() {
   const { gameState, joinGame } = useGameStore();
   const [showNameModal, setShowNameModal] = useState(false);
@@ -29,9 +30,11 @@ function App() {
   };
 
   return (
-    <div className="App">
-      {gameState.id ? <GameBoard /> : <LandingPage />}
-      {showNameModal && <NameModal onSubmit={handleNameSubmit} />}
+    <div className="min-h-screen flex flex-col">
+      <div className="flex-grow">
+        {gameState.id ? <GameBoard /> : <LandingPage />}
+        {showNameModal && <NameModal onSubmit={handleNameSubmit} />}
+      </div>
       <Footer />
     </div>
   );

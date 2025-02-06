@@ -429,12 +429,12 @@ const GameBoard: React.FC = () => {
         <div className="flex justify-between items-start">
           {/* Game Status */}
           <div className="bg-white rounded-lg shadow-lg p-4 mb-8">
-            <h1 className="text-2xl font-bold mb-2">
+            <h1 className="text-lg font-bold mb-2">
               {isGameStarted
                 ? `Round ${gameState.currentRound}`
                 : "Waiting for players..."}
             </h1>
-            <p className="text-gray-600 text-lg">
+            <p className="text-gray-600 text">
               {isGameStarted ? (
                 isCurrentPlayerActive ? (
                   <span className="animate-pulse font-medium text-primary">
@@ -463,28 +463,22 @@ const GameBoard: React.FC = () => {
             </p>
           </div>
 
-          {/* Player List */}
-          <PlayerList
-            players={gameState.players}
-            currentPlayerId={currentPlayer?.id || null}
-            isGameStarted={isGameStarted}
-          />
         </div>
 
         {/* Game Area */}
         <div className="mt-8">
-          <div className="grid grid-cols-4 gap-x-6 gap-y-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
             {gameState.players.map((player) => (
               <motion.div
                 key={player.id}
-                className="relative pt-8"
+                className="relative w-full"
                 whileHover={
                   isGameStarted &&
                   isCurrentPlayerActive &&
                   player.id !== currentPlayer?.id &&
                   player.cardNumber !== gameState.revealedCard &&
                   player.cardNumber !== 1
-                    ? { scale: 1.05 }
+                    ? { scale: 1.02 }
                     : {}
                 }
               >
@@ -506,14 +500,25 @@ const GameBoard: React.FC = () => {
           </div>
         </div>
 
-        {/* Start Game Button - Only visible to organizer before game starts */}
-        {isOrganizer && !isGameStarted && (
-          <StartGameButton
-            onStart={startGame}
-            disabled={gameState.players.length < 3}
-            totalPlayers={gameState.players.length}
-            minPlayers={3}
+        {/* Player List - moved outside the game area */}
+        <div className="mt-8">
+          <PlayerList
+            players={gameState.players}
+            currentPlayerId={currentPlayer?.id || null}
+            isGameStarted={isGameStarted}
           />
+        </div>
+
+        {/* Start Game Button */}
+        {isOrganizer && !isGameStarted && (
+          <div className="mt-6">
+            <StartGameButton
+              onStart={startGame}
+              disabled={gameState.players.length < 3}
+              totalPlayers={gameState.players.length}
+              minPlayers={3}
+            />
+          </div>
         )}
       </div>
     </div>

@@ -1,6 +1,6 @@
 function FooterBelow() {
   return (
-    <footer className="fixed bottom-0 left-0 right-0 p-4 bg-white/80 backdrop-blur-sm border-t border-gray-200">
+    <footer className="w-full bg-white bg-opacity-90 p-2 sm:p-4 text-center text-sm sm:text-base mt-auto">
       <div className="max-w-6xl mx-auto flex items-center justify-center space-x-2 text-gray-600">
         <span>Developed with ❤️ by</span>
         <a

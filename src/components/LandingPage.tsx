@@ -22,24 +22,24 @@ const LandingPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
+    <div className="min-h-screen bg-background flex items-center justify-center p-4 sm:p-6">
       <motion.div
-        className="bg-white rounded-xl shadow-xl p-8 w-full max-w-md"
+        className="bg-white rounded-xl shadow-xl p-4 sm:p-8 w-full max-w-md mx-auto"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
       >
         {view === "main" && (
           <>
-            <h1 className="text-4xl font-bold text-center mb-8">Guess Who?</h1>
-            <div className="space-y-4">
+            <h1 className="text-3xl sm:text-4xl font-bold text-center mb-6 sm:mb-8">Guess Who?</h1>
+            <div className="space-y-3 sm:space-y-4">
               <button
-                className="btn-primary w-full"
+                className="btn-primary w-full text-lg sm:text-xl py-3"
                 onClick={() => setView("create")}
               >
                 Create Game
               </button>
               <button
-                className="btn-secondary w-full"
+                className="btn-secondary w-full text-lg sm:text-xl py-3"
                 onClick={() => setView("join")}
               >
                 Join Game
@@ -50,12 +50,12 @@ const LandingPage: React.FC = () => {
 
         {view === "create" && (
           <>
-            <h2 className="text-2xl font-bold mb-6">Create New Game</h2>
-            <div className="space-y-4">
+            <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Create New Game</h2>
+            <div className="space-y-3 sm:space-y-4">
               <input
                 type="text"
                 placeholder="Your Name"
-                className="input w-full"
+                className="input w-full text-lg py-2 px-3"
                 value={playerName}
                 onChange={(e) => setPlayerName(e.target.value)}
               />
@@ -78,19 +78,19 @@ const LandingPage: React.FC = () => {
 
         {view === "join" && (
           <>
-            <h2 className="text-2xl font-bold mb-6">Join Game</h2>
-            <div className="space-y-4">
+            <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Join Game</h2>
+            <div className="space-y-3 sm:space-y-4">
               <input
                 type="text"
                 placeholder="Your Name"
-                className="input w-full"
+                className="input w-full text-lg py-2 px-3"
                 value={playerName}
                 onChange={(e) => setPlayerName(e.target.value)}
               />
               <input
                 type="text"
                 placeholder="Game ID"
-                className="input w-full"
+                className="input w-full text-lg py-2 px-3"
                 value={gameId}
                 onChange={(e) => setGameId(e.target.value)}
               />
